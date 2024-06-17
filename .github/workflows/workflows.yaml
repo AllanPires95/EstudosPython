@@ -1,0 +1,25 @@
+name: Continuos Integration
+
+on: [pull_request, push]
+
+jobs:
+  contionuos-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Node.js packages
+        run: npm install
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.4.2
+
+      - name: Install dependencies
+        run: make build
